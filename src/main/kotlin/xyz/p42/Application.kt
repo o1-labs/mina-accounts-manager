@@ -16,6 +16,7 @@ var graphQlPort = 8080
 var genesisLedgerPath: String = "N/A"
 var graphQlEndpoint: String = "N/A"
 var accountCommonPassword: String = "N/A"
+var walletStorePath: String? = null
 lateinit var accounts: List<Account>
 val accountsToBeReleased: MutableList<Account> = mutableListOf()
 
@@ -52,6 +53,10 @@ fun configureStrings(args: Array<String>) {
     args.getOrNull(0)?.trim() ?: throw IllegalArgumentException("Genesis ledger path is not provided")
   graphQlEndpoint = "http://localhost:${graphQlPort}/graphql"
   accountCommonPassword = args.getOrNull(3)?.trim() ?: ACCOUNT_COMMON_PASSWORD
+  walletStorePath = System.getenv("MINA_KEYS_PATH")
+  if (walletStorePath != null) {
+    logger.info("Wallet key files directory: $walletStorePath")
+  }
 }
 
 fun configureInMemoryAccounts() {
