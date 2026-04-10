@@ -129,6 +129,17 @@ fun getUnlockAccountGraphQlQuery(publicKey: String) =
     }
     """.trimIndent()
 
+fun getImportAccountGraphQlQuery(path: String) =
+  """
+    mutation {
+      importAccount(password: "$accountCommonPassword", path: "$path") {
+        publicKey
+        alreadyImported
+        success
+      }
+    }
+    """.trimIndent()
+
 suspend fun releaseAccountAndGetNextIndex(): Int {
   if (accounts.isNotEmpty() && accountsToBeReleased.isNotEmpty()) {
     val publicKey = accountsToBeReleased.removeLast().pk

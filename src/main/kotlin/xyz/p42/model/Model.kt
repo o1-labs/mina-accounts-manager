@@ -53,6 +53,23 @@ data class UnlockAccountGraphQlResponse(
 )
 
 @Serializable
+data class ImportAccountResult(
+  val publicKey: String,
+  val alreadyImported: Boolean,
+  val success: Boolean
+)
+
+@Serializable
+data class ImportAccountWrapper(
+  val importAccount: ImportAccountResult
+)
+
+@Serializable
+data class ImportAccountGraphQlResponse(
+  val data: ImportAccountWrapper
+)
+
+@Serializable
 data class GraphQlPayload(
   val query: String,
   val variables: Map<String, String> = mapOf(),
